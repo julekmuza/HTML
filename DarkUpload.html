@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Prosta Przeglądarka</title>
+    <title>DarkUpload</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         #search-bar {
             width: 80%;
@@ -21,15 +33,18 @@
         #search-results {
             width: 80%;
             margin: 0 auto;
+            text-align: left;
         }
     </style>
 </head>
 <body>
-    <h1>DarkUpload</h1>
-    <input type="text" id="search-bar" placeholder="Wyszukaj..." />
-    <button id="search-button">Szukaj</button>
-    <div id="search-results">
-        <!-- Tutaj będą wyniki wyszukiwania -->
+    <div id="container">
+        <h1>DarkUpload</h1>
+        <input type="text" id="search-bar" placeholder="Wyszukaj..." />
+        <button id="search-button">Szukaj</button>
+        <div id="search-results">
+            <!-- Tutaj będą wyniki wyszukiwania -->
+        </div>
     </div>
     <script>
         const searchBar = document.getElementById('search-bar');
@@ -40,28 +55,67 @@
             const searchTerm = searchBar.value;
             if (searchTerm.trim() !== '') {
                 search(searchTerm);
+            } else {
+                displayNoResults();
+            }
+        });
+
+        // Obsługa wciśnięcia klawisza Enter
+        searchBar.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const searchTerm = searchBar.value;
+                if (searchTerm.trim() !== '') {
+                    search(searchTerm);
+                } else {
+                    displayNoResults();
+                }
             }
         });
 
         function search(term) {
-            // Tutaj możesz wykonać wyszukiwanie w internecie lub na własnej stronie
-            // Na potrzeby przykładu użyjemy tylko sztucznych wyników
-            const results = [
-                'Wynik 1: Przykładowa treść',
-                'Wynik 2: Inny przykład',
-                'Wynik 3: Kolejny wynik',
-            ];
+            // Sprawdź, czy fraza zawiera "youtube" lub jest podobna
+            if (term.toLowerCase().includes('youtube') || term.toLowerCase().includes('you')) {
+                displayYouTubeLink();
+            } else {
+                // Tutaj możesz umieścić logikę wyszukiwania w internecie lub na własnej stronie
+                // W tym miejscu zaimplementuj wyszukiwanie lub zostaw puste, jeśli nie masz własnej logiki
+                // Przykład: const results = performSearch(term);
 
-            displayResults(results);
+                // Zakładam, że masz wyniki w formie tablicy obiektów { title, link }
+                const results = [];
+
+                if (results.length > 0) {
+                    displayResults(results);
+                } else {
+                    displayNoResults();
+                }
+            }
         }
 
         function displayResults(results) {
             searchResults.innerHTML = '';
             results.forEach(result => {
                 const resultItem = document.createElement('div');
-                resultItem.textContent = result;
+                const link = document.createElement('a');
+                link.textContent = result.title;
+                link.href = result.link;
+                link.target = '_blank'; // Otwórz link w nowym oknie/tabie
+                resultItem.appendChild(link);
                 searchResults.appendChild(resultItem);
             });
+        }
+
+        function displayYouTubeLink() {
+            searchResults.innerHTML = '';
+            const youtubeLink = document.createElement('a');
+            youtubeLink.textContent = 'Otwórz YouTube';
+            youtubeLink.href = 'https://www.youtube.com/';
+            youtubeLink.target = '_blank'; // Otwórz link w nowym oknie/tabie
+            searchResults.appendChild(youtubeLink);
+        }
+
+        function displayNoResults() {
+            searchResults.innerHTML = 'Brak wyników.';
         }
     </script>
 </body>
