@@ -1,54 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pokemon RPG</title>
+    <title>Prosta Przeglądarka</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
         }
-        #game-container {
-            width: 400px;
+        #search-bar {
+            width: 80%;
+            margin: 20px auto;
+            padding: 10px;
+        }
+        #search-button {
+            padding: 10px 20px;
+            background-color: #0074d9;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #search-results {
+            width: 80%;
             margin: 0 auto;
-        }
-        #player {
-            background-color: #ff0000;
-            width: 50px;
-            height: 50px;
-            position: absolute;
         }
     </style>
 </head>
 <body>
-    <h1>Pokemon RPG</h1>
-    <div id="game-container">
-        <div id="player"></div>
+    <h1>DarkUpload</h1>
+    <input type="text" id="search-bar" placeholder="Wyszukaj..." />
+    <button id="search-button">Szukaj</button>
+    <div id="search-results">
+        <!-- Tutaj będą wyniki wyszukiwania -->
     </div>
-    <button onclick="movePlayer('left')">Left</button>
-    <button onclick="movePlayer('right')">Right</button>
-    <button onclick="movePlayer('up')">Up</button>
-    <button onclick="movePlayer('down')">Down</button>
-
     <script>
-        let playerX = 200;
-        let playerY = 200;
+        const searchBar = document.getElementById('search-bar');
+        const searchButton = document.getElementById('search-button');
+        const searchResults = document.getElementById('search-results');
 
-        function movePlayer(direction) {
-            const player = document.getElementById('player');
-            const step = 50;
-
-            if (direction === 'left') {
-                playerX -= step;
-            } else if (direction === 'right') {
-                playerX += step;
-            } else if (direction === 'up') {
-                playerY -= step;
-            } else if (direction === 'down') {
-                playerY += step;
+        searchButton.addEventListener('click', () => {
+            const searchTerm = searchBar.value;
+            if (searchTerm.trim() !== '') {
+                search(searchTerm);
             }
+        });
 
-            player.style.left = playerX + 'px';
-            player.style.top = playerY + 'px';
+        function search(term) {
+            // Tutaj możesz wykonać wyszukiwanie w internecie lub na własnej stronie
+            // Na potrzeby przykładu użyjemy tylko sztucznych wyników
+            const results = [
+                'Wynik 1: Przykładowa treść',
+                'Wynik 2: Inny przykład',
+                'Wynik 3: Kolejny wynik',
+            ];
+
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            searchResults.innerHTML = '';
+            results.forEach(result => {
+                const resultItem = document.createElement('div');
+                resultItem.textContent = result;
+                searchResults.appendChild(resultItem);
+            });
         }
     </script>
 </body>
