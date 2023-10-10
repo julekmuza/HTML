@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>DarkBrowse</title> <!-- Zmieniamy tytuł strony -->
+    <title>DarkBrowse</title>
     <style>
         body {
-            font-family: Arial, sans-serif; /* Ustaw ładniejszą czcionkę */
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -32,23 +32,23 @@
         }
         #search-results {
             width: 80%;
-            margin: 10px auto; /* Odstęp między przyciskiem a wynikami */
+            margin: 10px auto;
             text-align: left;
             display: flex;
-            flex-direction: column; /* Wyśrodkowanie wyników w pionie */
-            align-items: center; /* Wyśrodkowanie wyników w poziomie */
+            flex-direction: column;
+            align-items: center;
         }
         .result-item {
-            margin-bottom: 10px; /* Odstęp między wynikami */
+            margin-bottom: 10px;
         }
         h1 {
-            font-size: 36px; /* Powiększ rozmiar napisu DarkBrowse */
+            font-size: 36px;
         }
     </style>
 </head>
 <body>
     <div id="container">
-        <h1>DarkBrowse</h1> <!-- Powiększony napis -->
+        <h1>DarkBrowse</h1>
         <input type="text" id="search-bar" placeholder="Wyszukaj..." />
         <button id="search-button">Szukaj</button>
         <div id="search-results">
@@ -69,7 +69,6 @@
             }
         });
 
-        // Obsługa wciśnięcia klawisza Enter
         searchBar.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 const searchTerm = searchBar.value;
@@ -82,17 +81,11 @@
         });
 
         function search(term) {
-            // Sprawdź, czy fraza zawiera "youtube" lub jest podobna
             if (term.toLowerCase().includes('youtube') || term.toLowerCase().includes('you')) {
                 displayYouTubeLink();
-            } else if (term.toLowerCase() === 'snake') { // Dodaj warunek dla frazy "Snake"
+            } else if (term.toLowerCase() === 'snake') {
                 displaySnakeLink();
             } else {
-                // Tutaj możesz umieścić logikę wyszukiwania w internecie lub na własnej stronie
-                // W tym miejscu zaimplementuj wyszukiwanie lub zostaw puste, jeśli nie masz własnej logiki
-                // Przykład: const results = performSearch(term);
-
-                // Zakładam, że masz wyniki w formie tablicy obiektów { title, link }
                 const results = [];
 
                 if (results.length > 0) {
@@ -107,11 +100,11 @@
             searchResults.innerHTML = '';
             results.forEach(result => {
                 const resultItem = document.createElement('div');
-                resultItem.classList.add('result-item'); // Dodaj klasę dla odstępu
+                resultItem.classList.add('result-item');
                 const link = document.createElement('a');
                 link.textContent = result.title;
                 link.href = result.link;
-                link.target = '_blank'; // Otwórz link w nowym oknie/tabie
+                link.target = '_blank';
                 resultItem.appendChild(link);
                 searchResults.appendChild(resultItem);
             });
@@ -122,16 +115,16 @@
             const youtubeLink = document.createElement('a');
             youtubeLink.textContent = 'Otwórz YouTube';
             youtubeLink.href = 'https://www.youtube.com/';
-            youtubeLink.target = '_blank'; // Otwórz link w nowym oknie/tabie
+            youtubeLink.target = '_blank';
             searchResults.appendChild(youtubeLink);
         }
 
         function displaySnakeLink() {
             searchResults.innerHTML = '';
             const snakeLink = document.createElement('a');
-            snakeLink.textContent = 'Snake'; // Zmieniamy napis na "Snake"
-            snakeLink.href = 'https://julekmuza.github.io/HTML/Snake.html'; // Zmieniamy link
-            snakeLink.target = '_blank'; // Otwórz link w nowym oknie/tabie
+            snakeLink.textContent = 'Snake';
+            snakeLink.href = 'https://julekmuza.github.io/HTML/Snake.html';
+            snakeLink.target = '_blank';
             searchResults.appendChild(snakeLink);
         }
 

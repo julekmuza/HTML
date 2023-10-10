@@ -14,6 +14,11 @@
         canvas {
             border: 2px solid #333;
         }
+        #score {
+            color: white;
+            font-size: 24px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -48,6 +53,13 @@
 
             // Aktualizuj pozycję głowy węża
             const newHead = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+            // Sprawdź, czy wąż przeszedł przez ściany
+            if (newHead.x < 0) newHead.x = canvas.width / gridSize - 1;
+            if (newHead.x >= canvas.width / gridSize) newHead.x = 0;
+            if (newHead.y < 0) newHead.y = canvas.height / gridSize - 1;
+            if (newHead.y >= canvas.height / gridSize) newHead.y = 0;
+
             snake.unshift(newHead);
 
             // Sprawdź czy wąż zjadł jedzenie
@@ -59,22 +71,14 @@
                 snake.pop(); // Usuń ostatni segment węża
             }
 
-            // Wyświetl wynik
-
-            // Sprawdź kolizję z ścianami lub samym sobą
-            if (
-                newHead.x < 0 ||
-                newHead.x >= canvas.width / gridSize ||
-                newHead.y < 0 ||
-                newHead.y >= canvas.height / gridSize ||
-                checkCollision(newHead)
-            ) {
+            // Sprawdź kolizję z samym sobą
+            if (checkCollision(newHead)) {
                 gameOver();
                 return;
             }
 
             // Kontynuuj odświeżanie
-            requestAnimationFrame(draw);
+            setTimeout(draw, 100); // Zmieniona prędkość - 100 ms (10 klatek na sekundę)
         }
 
         function generateFood() {
@@ -90,6 +94,13 @@
             ctx.fillStyle = 'white';
             ctx.font = '40px Arial';
             ctx.fillText('Game Over', canvas.width / 2 - 100, canvas.height / 2);
+
+            // Zresetuj grę po wciśnięciu Enter
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Enter') {
+                    resetGame();
+                }
+            });
         }
 
         // Rozpocznij grę
@@ -125,6 +136,18 @@
                     break;
             }
         });
+
+        function resetGame() {
+            snake.length = 1;
+            snake[0] = { x: 10, y: 10 };
+            dx = 1;
+            dy = 0;
+            score = 0;
+            scoreElement.textContent = `Score: ${score}`;
+            generateFood();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            draw();
+        }
     </script>
 </body>
 </html>
