@@ -85,8 +85,8 @@
             // Sprawdź, czy fraza zawiera "youtube" lub jest podobna
             if (term.toLowerCase().includes('youtube') || term.toLowerCase().includes('you')) {
                 displayYouTubeLink();
-            } else if (term.toLowerCase() === 'dino') { // Dodaj warunek dla frazy "Dino"
-                displayDinoLink();
+            } else if (term.toLowerCase() === 'snake') { // Dodaj warunek dla frazy "Snake"
+                displaySnakeLink();
             } else {
                 // Tutaj możesz umieścić logikę wyszukiwania w internecie lub na własnej stronie
                 // W tym miejscu zaimplementuj wyszukiwanie lub zostaw puste, jeśli nie masz własnej logiki
@@ -126,4 +126,18 @@
             searchResults.appendChild(youtubeLink);
         }
 
-        function displayDinoLink() { // Dodaj funkcję
+        function displaySnakeLink() {
+            searchResults.innerHTML = '';
+            const snakeLink = document.createElement('a');
+            snakeLink.textContent = 'Snake'; // Zmieniamy napis na "Snake"
+            snakeLink.href = 'https://julekmuza.github.io/HTML/Snake.html'; // Zmieniamy link
+            snakeLink.target = '_blank'; // Otwórz link w nowym oknie/tabie
+            searchResults.appendChild(snakeLink);
+        }
+
+        function displayNoResults() {
+            searchResults.innerHTML = 'Brak wyników.';
+        }
+    </script>
+</body>
+</html>
