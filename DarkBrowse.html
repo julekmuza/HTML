@@ -85,6 +85,8 @@
             // Sprawdź, czy fraza zawiera "youtube" lub jest podobna
             if (term.toLowerCase().includes('youtube') || term.toLowerCase().includes('you')) {
                 displayYouTubeLink();
+            } else if (term.toLowerCase() === 'dino') { // Dodaj warunek dla frazy "Dino"
+                displayDinoLink();
             } else {
                 // Tutaj możesz umieścić logikę wyszukiwania w internecie lub na własnej stronie
                 // W tym miejscu zaimplementuj wyszukiwanie lub zostaw puste, jeśli nie masz własnej logiki
@@ -124,9 +126,4 @@
             searchResults.appendChild(youtubeLink);
         }
 
-        function displayNoResults() {
-            searchResults.innerHTML = 'Brak wyników.';
-        }
-    </script>
-</body>
-</html>
+        function displayDinoLink() { // Dodaj funkcję
